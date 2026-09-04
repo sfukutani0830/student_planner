@@ -18,6 +18,8 @@
   <ul id="assignmentList"></ul>
 
 <script>
+  let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+
   function addAssignment() {
     const assignmentInput = document.getElementById("assignment");
     const deadlineInput = document.getElementById("deadline");
@@ -30,6 +32,20 @@
       return;
     }
 
+    assignments.push({
+      assignment: assignment,
+      deadline: deadline
+    });
+
+    localStorage.setItem("assignments", JSON.stringify(assignments));
+
+    displayAssignment(assignment, deadline);
+
+    assignmentInput.value = "";
+    deadlineInput.value = "";
+  }
+
+  function displayAssignment(assignment, deadline) {
     const listItem = document.createElement("li");
 
     const assignmentText = document.createElement("span");
@@ -54,21 +70,11 @@
     listItem.appendChild(deleteButton);
 
     document.getElementById("assignmentList").appendChild(listItem);
-    localStorage.setItem(
-      "lastAssignment",
-      assignment + " - " + deadline
-    );
-    assignmentInput.value = "";
-    deadlineInput.value = "";
   }
-  const savedAssignment = localStorage.getItem("lastAssignment");
 
-if (savedAssignment !== null) {
-  const listItem = document.createElement("li");
-  listItem.textContent = savedAssignment;
-
-  document.getElementById("assignmentList").appendChild(listItem);
-}
+  assignments.forEach(function(item) {
+    displayAssignment(item.assignment, item.deadline);
+  });
 </script>
 </body>
 </html>
