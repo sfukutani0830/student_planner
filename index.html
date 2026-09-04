@@ -18,7 +18,8 @@
   <ul id="assignmentList"></ul>
 
 <script>
-  let assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+  let assignments =
+    JSON.parse(localStorage.getItem("assignments")) || [];
 
   function addAssignment() {
     const assignmentInput = document.getElementById("assignment");
@@ -37,44 +38,73 @@
       deadline: deadline
     });
 
-    localStorage.setItem("assignments", JSON.stringify(assignments));
-
-    displayAssignment(assignment, deadline);
+    localStorage.setItem(
+      "assignments",
+      JSON.stringify(assignments)
+    );
 
     assignmentInput.value = "";
     deadlineInput.value = "";
+
+    displayAssignments();
   }
 
-  function displayAssignment(assignment, deadline) {
-    const listItem = document.createElement("li");
 
-    const assignmentText = document.createElement("span");
-    assignmentText.textContent = assignment + " - " + deadline + " ";
+  function displayAssignments() {
+    const assignmentList =
+      document.getElementById("assignmentList");
 
-    const completeButton = document.createElement("button");
-    completeButton.textContent = "Complete";
+    assignmentList.innerHTML = "";
 
-    completeButton.onclick = function() {
-      assignmentText.style.textDecoration = "line-through";
-    };
+    assignments.forEach(function(item, index) {
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
+      const listItem = document.createElement("li");
 
-    deleteButton.onclick = function() {
-      listItem.remove();
-    };
+      const assignmentText =
+        document.createElement("span");
 
-    listItem.appendChild(assignmentText);
-    listItem.appendChild(completeButton);
-    listItem.appendChild(deleteButton);
+      assignmentText.textContent =
+        item.assignment + " - " + item.deadline + " ";
 
-    document.getElementById("assignmentList").appendChild(listItem);
+      const completeButton =
+        document.createElement("button");
+
+      completeButton.textContent = "Complete";
+
+      completeButton.onclick = function() {
+        assignmentText.style.textDecoration =
+          "line-through";
+      };
+
+
+      const deleteButton =
+        document.createElement("button");
+
+      deleteButton.textContent = "Delete";
+
+      deleteButton.onclick = function() {
+
+        assignments.splice(index, 1);
+
+        localStorage.setItem(
+          "assignments",
+          JSON.stringify(assignments)
+        );
+
+        displayAssignments();
+      };
+
+
+      listItem.appendChild(assignmentText);
+      listItem.appendChild(completeButton);
+      listItem.appendChild(deleteButton);
+
+      assignmentList.appendChild(listItem);
+    });
   }
 
-  assignments.forEach(function(item) {
-    displayAssignment(item.assignment, item.deadline);
-  });
+
+  displayAssignments();
 </script>
 </body>
 </html>
