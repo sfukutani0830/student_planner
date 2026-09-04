@@ -61,6 +61,14 @@
     assignmentInput.value = "";
     deadlineInput.value = "";
   }
+  const savedAssignment = localStorage.getItem("lastAssignment");
+
+if (savedAssignment !== null) {
+  const listItem = document.createElement("li");
+  listItem.textContent = savedAssignment;
+
+  document.getElementById("assignmentList").appendChild(listItem);
+}
 </script>
 </body>
 </html>
