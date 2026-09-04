@@ -11,9 +11,23 @@
   <p>Track your assignments and deadlines.</p>
 
   <input type="text" id="assignment" placeholder="Assignment name">
-
   <input type="date" id="deadline">
 
-  <button>Add Assignment</button>
+  <button onclick="addAssignment()">Add Assignment</button>
+
+  <ul id="assignmentList"></ul>
+
+  <script>
+    function addAssignment() {
+      const assignment = document.getElementById("assignment").value;
+      const deadline = document.getElementById("deadline").value;
+
+      const listItem = document.createElement("li");
+
+      listItem.textContent = assignment + " - " + deadline;
+
+      document.getElementById("assignmentList").appendChild(listItem);
+    }
+  </script>
 </body>
 </html>
