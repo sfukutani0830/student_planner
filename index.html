@@ -32,7 +32,15 @@
 
     const listItem = document.createElement("li");
 
-    listItem.textContent = assignment + " - " + deadline + " ";
+    const assignmentText = document.createElement("span");
+    assignmentText.textContent = assignment + " - " + deadline + " ";
+
+    const completeButton = document.createElement("button");
+    completeButton.textContent = "Complete";
+
+    completeButton.onclick = function() {
+      assignmentText.style.textDecoration = "line-through";
+    };
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
@@ -41,6 +49,8 @@
       listItem.remove();
     };
 
+    listItem.appendChild(assignmentText);
+    listItem.appendChild(completeButton);
     listItem.appendChild(deleteButton);
 
     document.getElementById("assignmentList").appendChild(listItem);
