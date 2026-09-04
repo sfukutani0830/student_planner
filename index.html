@@ -74,18 +74,19 @@
       const completeButton =
         document.createElement("button");
 
-      completeButton.textContent = "Complete";
+      completeButton.textContent =
+        item.completed ? "Undo" : "Complete";
 
-      completeButton.onclick = function() {
-        item.completed = true;
-
-        localStorage.setItem(
-          "assignments",
-          JSON.stringify(assignments)
-        );
-
-        displayAssignments();
-      };
+    completeButton.onclick = function() {
+      item.completed = !item.completed;
+    
+      localStorage.setItem(
+        "assignments",
+        JSON.stringify(assignments)
+      );
+    
+      displayAssignments();
+    };
 
 
       const deleteButton =
