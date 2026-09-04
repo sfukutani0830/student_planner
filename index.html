@@ -31,7 +31,17 @@
     }
 
     const listItem = document.createElement("li");
-    listItem.textContent = assignment + " - " + deadline;
+
+    listItem.textContent = assignment + " - " + deadline + " ";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+
+    deleteButton.onclick = function() {
+      listItem.remove();
+    };
+
+    listItem.appendChild(deleteButton);
 
     document.getElementById("assignmentList").appendChild(listItem);
 
