@@ -17,17 +17,27 @@
 
   <ul id="assignmentList"></ul>
 
-  <script>
-    function addAssignment() {
-      const assignment = document.getElementById("assignment").value;
-      const deadline = document.getElementById("deadline").value;
+<script>
+  function addAssignment() {
+    const assignmentInput = document.getElementById("assignment");
+    const deadlineInput = document.getElementById("deadline");
 
-      const listItem = document.createElement("li");
+    const assignment = assignmentInput.value;
+    const deadline = deadlineInput.value;
 
-      listItem.textContent = assignment + " - " + deadline;
-
-      document.getElementById("assignmentList").appendChild(listItem);
+    if (assignment === "" || deadline === "") {
+      alert("Please enter an assignment and deadline.");
+      return;
     }
-  </script>
+
+    const listItem = document.createElement("li");
+    listItem.textContent = assignment + " - " + deadline;
+
+    document.getElementById("assignmentList").appendChild(listItem);
+
+    assignmentInput.value = "";
+    deadlineInput.value = "";
+  }
+</script>
 </body>
 </html>
