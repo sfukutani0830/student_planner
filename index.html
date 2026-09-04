@@ -54,7 +54,10 @@
     listItem.appendChild(deleteButton);
 
     document.getElementById("assignmentList").appendChild(listItem);
-
+    localStorage.setItem(
+      "lastAssignment",
+      assignment + " - " + deadline
+    );
     assignmentInput.value = "";
     deadlineInput.value = "";
   }
