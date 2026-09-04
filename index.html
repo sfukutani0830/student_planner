@@ -35,7 +35,8 @@
 
     assignments.push({
       assignment: assignment,
-      deadline: deadline
+      deadline: deadline,
+      completed: false
     });
 
     localStorage.setItem(
@@ -66,14 +67,24 @@
       assignmentText.textContent =
         item.assignment + " - " + item.deadline + " ";
 
+      if (item.completed === true) {
+        assignmentText.style.textDecoration = "line-through";
+      }
+
       const completeButton =
         document.createElement("button");
 
       completeButton.textContent = "Complete";
 
       completeButton.onclick = function() {
-        assignmentText.style.textDecoration =
-          "line-through";
+        item.completed = true;
+
+        localStorage.setItem(
+          "assignments",
+          JSON.stringify(assignments)
+        );
+
+        displayAssignments();
       };
 
 
@@ -83,7 +94,6 @@
       deleteButton.textContent = "Delete";
 
       deleteButton.onclick = function() {
-
         assignments.splice(index, 1);
 
         localStorage.setItem(
